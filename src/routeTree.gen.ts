@@ -15,6 +15,7 @@ import { Route as KhamPhaNgauNhienRouteImport } from './routes/kham-pha-ngau-nhi
 import { Route as TruyenThuyetRouteImport } from './routes/truyen-thuyet'
 import { Route as VeChungToiRouteImport } from './routes/ve-chung-toi'
 import { Route as TruyenThuyetIndexRouteImport } from './routes/truyen-thuyet.index'
+import { Route as TruyenThuyetSlugRouteImport } from './routes/truyen-thuyet.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const TruyenThuyetIndexRoute = TruyenThuyetIndexRouteImport.update({
   path: '/',
   getParentRoute: () => TruyenThuyetRoute,
 } as any)
+const TruyenThuyetSlugRoute = TruyenThuyetSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => TruyenThuyetRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/dang-hot': typeof DangHotRoute
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet': typeof TruyenThuyetIndexRoute
 }
 export interface FileRoutesById {
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
 }
 export interface FileRouteTypes {
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/kham-pha-ngau-nhien'
     | '/truyen-thuyet'
     | '/ve-chung-toi'
+    | '/truyen-thuyet/$slug'
     | '/truyen-thuyet/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/dang-hot'
     | '/kham-pha-ngau-nhien'
     | '/ve-chung-toi'
+    | '/truyen-thuyet/$slug'
     | '/truyen-thuyet'
   id:
     | '__root__'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/kham-pha-ngau-nhien'
     | '/truyen-thuyet'
     | '/ve-chung-toi'
+    | '/truyen-thuyet/$slug'
     | '/truyen-thuyet/'
   fileRoutesById: FileRoutesById
 }
@@ -149,14 +161,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TruyenThuyetIndexRouteImport
       parentRoute: typeof TruyenThuyetRoute
     }
+    '/truyen-thuyet/$slug': {
+      id: '/truyen-thuyet/$slug'
+      path: '/$slug'
+      fullPath: '/truyen-thuyet/$slug'
+      preLoaderRoute: typeof TruyenThuyetSlugRouteImport
+      parentRoute: typeof TruyenThuyetRoute
+    }
   }
 }
 
 interface TruyenThuyetRouteChildren {
+  TruyenThuyetSlugRoute: typeof TruyenThuyetSlugRoute
   TruyenThuyetIndexRoute: typeof TruyenThuyetIndexRoute
 }
 
 const TruyenThuyetRouteChildren: TruyenThuyetRouteChildren = {
+  TruyenThuyetSlugRoute: TruyenThuyetSlugRoute,
   TruyenThuyetIndexRoute: TruyenThuyetIndexRoute,
 }
 
