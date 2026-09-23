@@ -10,33 +10,99 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DangHotRouteImport } from './routes/dang-hot'
+import { Route as KhamPhaNgauNhienRouteImport } from './routes/kham-pha-ngau-nhien'
+import { Route as TruyenThuyetRouteImport } from './routes/truyen-thuyet'
+import { Route as VeChungToiRouteImport } from './routes/ve-chung-toi'
+import { Route as TruyenThuyetIndexRouteImport } from './routes/truyen-thuyet.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DangHotRoute = DangHotRouteImport.update({
+  id: '/dang-hot',
+  path: '/dang-hot',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KhamPhaNgauNhienRoute = KhamPhaNgauNhienRouteImport.update({
+  id: '/kham-pha-ngau-nhien',
+  path: '/kham-pha-ngau-nhien',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruyenThuyetRoute = TruyenThuyetRouteImport.update({
+  id: '/truyen-thuyet',
+  path: '/truyen-thuyet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VeChungToiRoute = VeChungToiRouteImport.update({
+  id: '/ve-chung-toi',
+  path: '/ve-chung-toi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TruyenThuyetIndexRoute = TruyenThuyetIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TruyenThuyetRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dang-hot': typeof DangHotRoute
+  '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
+  '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
+  '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dang-hot': typeof DangHotRoute
+  '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
+  '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet': typeof TruyenThuyetIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dang-hot': typeof DangHotRoute
+  '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
+  '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
+  '/ve-chung-toi': typeof VeChungToiRoute
+  '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dang-hot'
+    | '/kham-pha-ngau-nhien'
+    | '/truyen-thuyet'
+    | '/ve-chung-toi'
+    | '/truyen-thuyet/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dang-hot'
+    | '/kham-pha-ngau-nhien'
+    | '/ve-chung-toi'
+    | '/truyen-thuyet'
+  id:
+    | '__root__'
+    | '/'
+    | '/dang-hot'
+    | '/kham-pha-ngau-nhien'
+    | '/truyen-thuyet'
+    | '/ve-chung-toi'
+    | '/truyen-thuyet/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DangHotRoute: typeof DangHotRoute
+  KhamPhaNgauNhienRoute: typeof KhamPhaNgauNhienRoute
+  TruyenThuyetRoute: typeof TruyenThuyetRouteWithChildren
+  VeChungToiRoute: typeof VeChungToiRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +114,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dang-hot': {
+      id: '/dang-hot'
+      path: '/dang-hot'
+      fullPath: '/dang-hot'
+      preLoaderRoute: typeof DangHotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kham-pha-ngau-nhien': {
+      id: '/kham-pha-ngau-nhien'
+      path: '/kham-pha-ngau-nhien'
+      fullPath: '/kham-pha-ngau-nhien'
+      preLoaderRoute: typeof KhamPhaNgauNhienRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truyen-thuyet': {
+      id: '/truyen-thuyet'
+      path: '/truyen-thuyet'
+      fullPath: '/truyen-thuyet'
+      preLoaderRoute: typeof TruyenThuyetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ve-chung-toi': {
+      id: '/ve-chung-toi'
+      path: '/ve-chung-toi'
+      fullPath: '/ve-chung-toi'
+      preLoaderRoute: typeof VeChungToiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/truyen-thuyet/': {
+      id: '/truyen-thuyet/'
+      path: '/'
+      fullPath: '/truyen-thuyet/'
+      preLoaderRoute: typeof TruyenThuyetIndexRouteImport
+      parentRoute: typeof TruyenThuyetRoute
+    }
   }
 }
 
+interface TruyenThuyetRouteChildren {
+  TruyenThuyetIndexRoute: typeof TruyenThuyetIndexRoute
+}
+
+const TruyenThuyetRouteChildren: TruyenThuyetRouteChildren = {
+  TruyenThuyetIndexRoute: TruyenThuyetIndexRoute,
+}
+
+const TruyenThuyetRouteWithChildren = TruyenThuyetRoute._addFileChildren(
+  TruyenThuyetRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DangHotRoute: DangHotRoute,
+  KhamPhaNgauNhienRoute: KhamPhaNgauNhienRoute,
+  TruyenThuyetRoute: TruyenThuyetRouteWithChildren,
+  VeChungToiRoute: VeChungToiRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
