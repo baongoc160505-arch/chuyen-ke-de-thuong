@@ -1,0 +1,17 @@
+import { Link, createFileRoute, notFound } from "@tanstack/react-router";
+import { ChevronRight, Clock3, Eye, Lightbulb, MapPin, ScrollText } from "lucide-react";
+import { StoryCard } from "@/components/story-card";
+import { formatViews, stories } from "@/lib/stories";
+
+export const Route = createFileRoute("/truyen-thuyet/$slug")({
+  loader: ({ params }) => { const story = stories.find((item) => item.slug === params.slug); if (!story) throw notFound(); return story; },
+  head: ({ loaderData }) => ({ meta: [
+    { title: loaderData ? `${loaderData.title} — Truyền Thuyết Đô Thị` : "Không tìm thấy lời đồn" },
+    { name: "description", content: loaderData?.excerpt ?? "Lời đồn này đã đi đâu mất rồi." },
+    { property: "og:title", content: loaderData?.title ?? "Không tìm thấy lời đồn" },
+    { property: "og:description", content: loaderData?.excerpt ?? "Lời đồn này đã đi đâu mất rồi." },
+    { property: "og:type", content: "article" }, { name: "twitter:card", content: "summary_large_image" },
+  ] }), component: StoryPage,
+});
+
+function StoryPage() { const story = Route.useLoaderData(); const related=stories.filter((x)=>x.slug!==story.slug).slice(0,3); return <article className="story-page section-pad"><div className="site-container"><nav className="breadcrumb" aria-label="Đường dẫn"><Link to="/">Trang chủ</Link><ChevronRight/><Link to="/truyen-thuyet">Truyền thuyết</Link><ChevronRight/><span>{story.country}</span></nav><header className="story-header"><div><div className="flex flex-wrap gap-2"><span className="country-sticker"><MapPin/> {story.country}</span><span className="country-sticker">#{story.category}</span></div><h1 className="mt-6 font-display text-6xl leading-none sm:text-7xl">{story.title}</h1><p className="mt-5 max-w-2xl text-lg leading-8">{story.excerpt}</p><div className="mt-6 flex gap-5 text-sm font-bold"><span className="inline-flex items-center gap-2"><Clock3/> {story.readTime} phút đọc</span><span className="inline-flex items-center gap-2"><Eye/> {formatViews(story.views)} lượt đọc</span></div></div><div className="article-photo"><span className="tape tape-left"/><img src={story.image} alt={`Minh họa cho ${story.title}`} width={1536} height={1024}/><span className="photo-caption">Hình minh họa từ cuốn sổ lời đồn</span></div></header><div className="article-layout"><aside className="article-note">Ghi chú của ma nhỏ:<br/><strong>Đọc chậm thôi, không có gì nhảy ra đâu!</strong></aside><div className="article-body">{story.body.map((paragraph)=><p key={paragraph}>{paragraph}</p>)}<section><h2><ScrollText/> Lời đồn bắt đầu từ đâu?</h2><p>{story.origin}</p></section><section className="truth-box"><h2><Lightbulb/> Có thật không?</h2><p>{story.truth}</p></section></div></div><section className="mt-24"><h2 className="font-display text-5xl">Nghe đồn thêm…</h2><div className="mt-9 grid gap-8 md:grid-cols-3">{related.map((item,index)=><StoryCard key={item.slug} story={item} index={index}/>)}</div></section></div></article> }
