@@ -83,7 +83,7 @@ export function CommentThread({ comments, onAdd, onLike }: { comments: Comment[]
   );
 }
 
-export function StorySubmissionForm({ onSubmit }: { onSubmit: (data: { author: string; title: string; body: string[]; location?: string; topic: string; image?: string }) => string }) {
+export function StorySubmissionForm({ onSubmit }: { onSubmit: (data: { author: string; title: string; body: string[]; location?: string | undefined; topic: string; image?: string | undefined }) => string }) {
   const [done, setDone] = useState<string | null>(null);
   const [image, setImage] = useState<string | undefined>();
   const [error, setError] = useState("");
@@ -111,7 +111,7 @@ export function StorySubmissionForm({ onSubmit }: { onSubmit: (data: { author: s
       <label>Câu chuyện của bạn<textarea name="story" rows={8} maxLength={5000} required placeholder="Kể từ từ thôi, không ai hù bạn đâu…" /></label>
       <div className="grid gap-5 sm:grid-cols-2">
         <label>Quốc gia / địa điểm <small>(không bắt buộc)</small><input name="location" list="country-options" maxLength={60} placeholder="Ví dụ: Đà Lạt, Việt Nam" /><datalist id="country-options">{countryList.map((c) => <option key={c.slug} value={c.name} />)}</datalist></label>
-        <label>Chủ đề<select name="topic" defaultValue={topicList[0].name}>{topicList.map((t) => <option key={t.slug}>{t.name}</option>)}</select></label>
+        <label>Chủ đề<select name="topic" defaultValue={topicList[0]?.name}>{topicList.map((t) => <option key={t.slug}>{t.name}</option>)}</select></label>
       </div>
       <label>Ảnh minh họa <small>(không bắt buộc)</small><input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files?.[0])} /></label>
       {image && <img src={image} alt="Ảnh bạn vừa chọn" className="max-h-48 w-auto rounded border-2 border-foreground" />}

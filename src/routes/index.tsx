@@ -3,7 +3,7 @@ import { ArrowRight, Dice5, Flame, MapPinned, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GhostMascot } from "@/components/mascot";
 import { StoryCard } from "@/components/story-card";
-import { countries, stories } from "@/lib/stories";
+import { countryList, stories } from "@/lib/stories";
 import heroMascots from "@/assets/hero-mascots.jpg";
 import worldMap from "@/assets/world-map.jpg";
 
@@ -39,7 +39,7 @@ function HomePage() {
 
     <section className="section-pad"><div className="site-container"><SectionHeading kicker="Vừa nhặt được">Lời đồn mới nhất</SectionHeading><div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">{stories.slice(0, 3).map((story, index) => <StoryCard key={story.slug} story={story} index={index} />)}</div><div className="mt-10 text-center"><Button asChild variant="paper"><Link to="/truyen-thuyet">Mở cả kho lời đồn <ArrowRight /></Link></Button></div></div></section>
 
-    <section className="map-section section-pad"><div className="site-container grid items-center gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><SectionHeading kicker="Bản đồ bí ẩn" note="Mỗi nơi đều có một câu chuyện được thì thầm qua nhiều thế hệ.">Lời đồn từ đâu?</SectionHeading><div className="flex flex-wrap gap-2">{countries.slice(1).map((country) => <Link key={country} to="/truyen-thuyet" search={{ q: "", country, topic: "Tất cả", sort: "Mới nhất" } as never} className="country-sticker">📍 {country}</Link>)}</div><Button asChild variant="sticker" className="mt-7"><Link to="/truyen-thuyet"><MapPinned /> Khám phá theo quốc gia</Link></Button></div><div className="map-picture"><img src={worldMap} alt="Bản đồ thế giới minh họa với các ghim lời đồn" width={1536} height={1024} loading="lazy" /></div></div></section>
+    <section className="map-section section-pad"><div className="site-container grid items-center gap-12 lg:grid-cols-[.8fr_1.2fr]"><div><SectionHeading kicker="Bản đồ bí ẩn" note="Mỗi nơi đều có một câu chuyện được thì thầm qua nhiều thế hệ.">Lời đồn từ đâu?</SectionHeading><div className="flex flex-wrap gap-2">{countryList.map((c) => <Link key={c.slug} to="/truyen-thuyet/quoc-gia/$country" params={{ country: c.slug }} className="country-sticker">📍 {c.name}</Link>)}</div><Button asChild variant="sticker" className="mt-7"><Link to="/truyen-thuyet"><MapPinned /> Khám phá theo quốc gia</Link></Button></div><div className="map-picture"><img src={worldMap} alt="Bản đồ thế giới minh họa với các ghim lời đồn" width={1536} height={1024} loading="lazy" /></div></div></section>
 
     <section className="section-pad"><div className="site-container"><div className="random-band"><GhostMascot mood="happy" className="random-ghost" /><div><span className="section-kicker">Một chút may rủi</span><h2 className="mt-2 font-display text-5xl">Không biết đọc gì?</h2><p className="mt-3 max-w-xl">Để tụi mình thò tay vào chiếc hộp bí ẩn và chọn một lời đồn cho bạn.</p></div><Button asChild variant="sticker" size="lg"><Link to="/kham-pha-ngau-nhien"><Dice5 /> Khám phá ngẫu nhiên</Link></Button></div></div></section>
 
