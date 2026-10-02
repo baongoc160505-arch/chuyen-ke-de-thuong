@@ -16,6 +16,8 @@ import { Route as TruyenThuyetRouteImport } from './routes/truyen-thuyet'
 import { Route as VeChungToiRouteImport } from './routes/ve-chung-toi'
 import { Route as TruyenThuyetIndexRouteImport } from './routes/truyen-thuyet.index'
 import { Route as TruyenThuyetSlugRouteImport } from './routes/truyen-thuyet.$slug'
+import { Route as TruyenThuyetChuDeTopicRouteImport } from './routes/truyen-thuyet.chu-de.$topic'
+import { Route as TruyenThuyetQuocGiaCountryRouteImport } from './routes/truyen-thuyet.quoc-gia.$country'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +54,17 @@ const TruyenThuyetSlugRoute = TruyenThuyetSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TruyenThuyetRoute,
 } as any)
+const TruyenThuyetChuDeTopicRoute = TruyenThuyetChuDeTopicRouteImport.update({
+  id: '/chu-de/$topic',
+  path: '/chu-de/$topic',
+  getParentRoute: () => TruyenThuyetRoute,
+} as any)
+const TruyenThuyetQuocGiaCountryRoute =
+  TruyenThuyetQuocGiaCountryRouteImport.update({
+    id: '/quoc-gia/$country',
+    path: '/quoc-gia/$country',
+    getParentRoute: () => TruyenThuyetRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +74,8 @@ export interface FileRoutesByFullPath {
   '/ve-chung-toi': typeof VeChungToiRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
+  '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
+  '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -69,6 +84,8 @@ export interface FileRoutesByTo {
   '/ve-chung-toi': typeof VeChungToiRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet': typeof TruyenThuyetIndexRoute
+  '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
+  '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -79,6 +96,8 @@ export interface FileRoutesById {
   '/ve-chung-toi': typeof VeChungToiRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
+  '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
+  '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -90,6 +109,8 @@ export interface FileRouteTypes {
     | '/ve-chung-toi'
     | '/truyen-thuyet/$slug'
     | '/truyen-thuyet/'
+    | '/truyen-thuyet/chu-de/$topic'
+    | '/truyen-thuyet/quoc-gia/$country'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -98,6 +119,8 @@ export interface FileRouteTypes {
     | '/ve-chung-toi'
     | '/truyen-thuyet/$slug'
     | '/truyen-thuyet'
+    | '/truyen-thuyet/chu-de/$topic'
+    | '/truyen-thuyet/quoc-gia/$country'
   id:
     | '__root__'
     | '/'
@@ -107,6 +130,8 @@ export interface FileRouteTypes {
     | '/ve-chung-toi'
     | '/truyen-thuyet/$slug'
     | '/truyen-thuyet/'
+    | '/truyen-thuyet/chu-de/$topic'
+    | '/truyen-thuyet/quoc-gia/$country'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -168,17 +193,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TruyenThuyetSlugRouteImport
       parentRoute: typeof TruyenThuyetRoute
     }
+    '/truyen-thuyet/chu-de/$topic': {
+      id: '/truyen-thuyet/chu-de/$topic'
+      path: '/chu-de/$topic'
+      fullPath: '/truyen-thuyet/chu-de/$topic'
+      preLoaderRoute: typeof TruyenThuyetChuDeTopicRouteImport
+      parentRoute: typeof TruyenThuyetRoute
+    }
+    '/truyen-thuyet/quoc-gia/$country': {
+      id: '/truyen-thuyet/quoc-gia/$country'
+      path: '/quoc-gia/$country'
+      fullPath: '/truyen-thuyet/quoc-gia/$country'
+      preLoaderRoute: typeof TruyenThuyetQuocGiaCountryRouteImport
+      parentRoute: typeof TruyenThuyetRoute
+    }
   }
 }
 
 interface TruyenThuyetRouteChildren {
   TruyenThuyetSlugRoute: typeof TruyenThuyetSlugRoute
   TruyenThuyetIndexRoute: typeof TruyenThuyetIndexRoute
+  TruyenThuyetChuDeTopicRoute: typeof TruyenThuyetChuDeTopicRoute
+  TruyenThuyetQuocGiaCountryRoute: typeof TruyenThuyetQuocGiaCountryRoute
 }
 
 const TruyenThuyetRouteChildren: TruyenThuyetRouteChildren = {
   TruyenThuyetSlugRoute: TruyenThuyetSlugRoute,
   TruyenThuyetIndexRoute: TruyenThuyetIndexRoute,
+  TruyenThuyetChuDeTopicRoute: TruyenThuyetChuDeTopicRoute,
+  TruyenThuyetQuocGiaCountryRoute: TruyenThuyetQuocGiaCountryRoute,
 }
 
 const TruyenThuyetRouteWithChildren = TruyenThuyetRoute._addFileChildren(
