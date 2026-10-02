@@ -20,7 +20,7 @@ export const stories: Story[] = [
     slug: "can-phong-cuoi-hanh-lang",
     title: "Căn phòng cuối hành lang",
     country: "Việt Nam",
-    category: "Địa điểm bí ẩn",
+    category: "Đô thị",
     excerpt: "Một khu tập thể cũ, ngọn đèn luôn sáng và lời nhắn kỳ lạ để lại trên bậc thang.",
     readTime: 6,
     views: 18400,
@@ -90,7 +90,7 @@ export const stories: Story[] = [
     slug: "xe-buyt-so-khong",
     title: "Chuyến xe buýt số 0",
     country: "Trung Quốc",
-    category: "Chuyện chưa giải thích",
+    category: "Đường phố",
     excerpt: "Chiếc xe chỉ xuất hiện khi trời mưa và luôn chở hành khách về đúng nơi cần đến.",
     readTime: 6,
     views: 11600,
@@ -103,7 +103,7 @@ export const stories: Story[] = [
     slug: "bong-trang-duoi-giếng",
     title: "Bóng trăng dưới giếng",
     country: "Thái Lan",
-    category: "Ma quỷ",
+    category: "Thiên nhiên",
     excerpt: "Một lời nhắc dễ thương rằng đừng cúi quá gần chiếc giếng cổ vào đêm trăng.",
     readTime: 4,
     views: 8200,
@@ -115,7 +115,7 @@ export const stories: Story[] = [
   {
     slug: "con-meo-trong-man-hinh",
     title: "Con mèo trong màn hình cũ",
-    country: "Mỹ",
+    country: "Hoa Kỳ",
     category: "Internet",
     excerpt: "Một trang web thất lạc, con mèo pixel và lời nhắc đi ngủ đúng giờ.",
     readTime: 3,
@@ -127,7 +127,39 @@ export const stories: Story[] = [
   },
 ];
 
-export const countries = ["Tất cả", "Việt Nam", "Nhật Bản", "Hàn Quốc", "Trung Quốc", "Thái Lan", "Mỹ", "Anh", "Mexico"];
-export const topics = ["Tất cả", "Ma quỷ", "Địa điểm bí ẩn", "Trường học", "Internet", "Đồ vật", "Chuyện chưa giải thích"];
+export type Taxon = { slug: string; name: string; emoji: string };
+
+export const countryList: Taxon[] = [
+  { slug: "viet-nam", name: "Việt Nam", emoji: "🛵" },
+  { slug: "nhat-ban", name: "Nhật Bản", emoji: "🏮" },
+  { slug: "han-quoc", name: "Hàn Quốc", emoji: "🥢" },
+  { slug: "trung-quoc", name: "Trung Quốc", emoji: "🐉" },
+  { slug: "thai-lan", name: "Thái Lan", emoji: "🐘" },
+  { slug: "indonesia", name: "Indonesia", emoji: "🌋" },
+  { slug: "philippines", name: "Philippines", emoji: "🥥" },
+  { slug: "hoa-ky", name: "Hoa Kỳ", emoji: "🗽" },
+  { slug: "anh", name: "Anh", emoji: "☂️" },
+  { slug: "mexico", name: "Mexico", emoji: "🌵" },
+  { slug: "khac", name: "Khác", emoji: "🧭" },
+];
+
+export const topicList: Taxon[] = [
+  { slug: "do-thi", name: "Đô thị", emoji: "🏙️" },
+  { slug: "truong-hoc", name: "Trường học", emoji: "🎒" },
+  { slug: "benh-vien", name: "Bệnh viện", emoji: "🩹" },
+  { slug: "duong-pho", name: "Đường phố", emoji: "🚏" },
+  { slug: "thien-nhien", name: "Thiên nhiên", emoji: "🌿" },
+  { slug: "internet", name: "Internet", emoji: "💻" },
+  { slug: "cong-trinh-bo-hoang", name: "Công trình bỏ hoang", emoji: "🏚️" },
+  { slug: "do-vat", name: "Đồ vật", emoji: "📞" },
+  { slug: "sinh-vat-ky-la", name: "Sinh vật kỳ lạ", emoji: "🐾" },
+  { slug: "chuyen-chua-giai-thich", name: "Chuyện chưa giải thích", emoji: "❓" },
+];
+
+const known = new Set(countryList.map((c) => c.name));
+export const countrySlugOf = (name: string) => (known.has(name) ? countryList.find((c) => c.name === name)!.slug : "khac");
+export const topicSlugOf = (name: string) => topicList.find((t) => t.name === name)?.slug ?? "chuyen-chua-giai-thich";
+export const storiesByCountry = (slug: string) => stories.filter((s) => countrySlugOf(s.country) === slug);
+export const storiesByTopic = (slug: string) => stories.filter((s) => topicSlugOf(s.category) === slug);
 
 export const formatViews = (views: number) => `${(views / 1000).toFixed(views % 1000 === 0 ? 0 : 1)}K`;
