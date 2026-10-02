@@ -10,10 +10,14 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CongDongRouteImport } from './routes/cong-dong'
 import { Route as DangHotRouteImport } from './routes/dang-hot'
 import { Route as KhamPhaNgauNhienRouteImport } from './routes/kham-pha-ngau-nhien'
 import { Route as TruyenThuyetRouteImport } from './routes/truyen-thuyet'
 import { Route as VeChungToiRouteImport } from './routes/ve-chung-toi'
+import { Route as CongDongIndexRouteImport } from './routes/cong-dong.index'
+import { Route as CongDongIdRouteImport } from './routes/cong-dong.$id'
+import { Route as CongDongDangTruyenRouteImport } from './routes/cong-dong.dang-truyen'
 import { Route as TruyenThuyetIndexRouteImport } from './routes/truyen-thuyet.index'
 import { Route as TruyenThuyetSlugRouteImport } from './routes/truyen-thuyet.$slug'
 import { Route as TruyenThuyetChuDeTopicRouteImport } from './routes/truyen-thuyet.chu-de.$topic'
@@ -22,6 +26,11 @@ import { Route as TruyenThuyetQuocGiaCountryRouteImport } from './routes/truyen-
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CongDongRoute = CongDongRouteImport.update({
+  id: '/cong-dong',
+  path: '/cong-dong',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DangHotRoute = DangHotRouteImport.update({
@@ -43,6 +52,21 @@ const VeChungToiRoute = VeChungToiRouteImport.update({
   id: '/ve-chung-toi',
   path: '/ve-chung-toi',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CongDongIndexRoute = CongDongIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CongDongRoute,
+} as any)
+const CongDongIdRoute = CongDongIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => CongDongRoute,
+} as any)
+const CongDongDangTruyenRoute = CongDongDangTruyenRouteImport.update({
+  id: '/dang-truyen',
+  path: '/dang-truyen',
+  getParentRoute: () => CongDongRoute,
 } as any)
 const TruyenThuyetIndexRoute = TruyenThuyetIndexRouteImport.update({
   id: '/',
@@ -68,11 +92,15 @@ const TruyenThuyetQuocGiaCountryRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cong-dong': typeof CongDongRouteWithChildren
   '/dang-hot': typeof DangHotRoute
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/cong-dong/$id': typeof CongDongIdRoute
+  '/cong-dong/dang-truyen': typeof CongDongDangTruyenRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
+  '/cong-dong/': typeof CongDongIndexRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
   '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
   '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
@@ -82,7 +110,10 @@ export interface FileRoutesByTo {
   '/dang-hot': typeof DangHotRoute
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/cong-dong/$id': typeof CongDongIdRoute
+  '/cong-dong/dang-truyen': typeof CongDongDangTruyenRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
+  '/cong-dong': typeof CongDongIndexRoute
   '/truyen-thuyet': typeof TruyenThuyetIndexRoute
   '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
   '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
@@ -90,11 +121,15 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cong-dong': typeof CongDongRouteWithChildren
   '/dang-hot': typeof DangHotRoute
   '/kham-pha-ngau-nhien': typeof KhamPhaNgauNhienRoute
   '/truyen-thuyet': typeof TruyenThuyetRouteWithChildren
   '/ve-chung-toi': typeof VeChungToiRoute
+  '/cong-dong/$id': typeof CongDongIdRoute
+  '/cong-dong/dang-truyen': typeof CongDongDangTruyenRoute
   '/truyen-thuyet/$slug': typeof TruyenThuyetSlugRoute
+  '/cong-dong/': typeof CongDongIndexRoute
   '/truyen-thuyet/': typeof TruyenThuyetIndexRoute
   '/truyen-thuyet/chu-de/$topic': typeof TruyenThuyetChuDeTopicRoute
   '/truyen-thuyet/quoc-gia/$country': typeof TruyenThuyetQuocGiaCountryRoute
@@ -103,11 +138,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cong-dong'
     | '/dang-hot'
     | '/kham-pha-ngau-nhien'
     | '/truyen-thuyet'
     | '/ve-chung-toi'
+    | '/cong-dong/$id'
+    | '/cong-dong/dang-truyen'
     | '/truyen-thuyet/$slug'
+    | '/cong-dong/'
     | '/truyen-thuyet/'
     | '/truyen-thuyet/chu-de/$topic'
     | '/truyen-thuyet/quoc-gia/$country'
@@ -117,18 +156,25 @@ export interface FileRouteTypes {
     | '/dang-hot'
     | '/kham-pha-ngau-nhien'
     | '/ve-chung-toi'
+    | '/cong-dong/$id'
+    | '/cong-dong/dang-truyen'
     | '/truyen-thuyet/$slug'
+    | '/cong-dong'
     | '/truyen-thuyet'
     | '/truyen-thuyet/chu-de/$topic'
     | '/truyen-thuyet/quoc-gia/$country'
   id:
     | '__root__'
     | '/'
+    | '/cong-dong'
     | '/dang-hot'
     | '/kham-pha-ngau-nhien'
     | '/truyen-thuyet'
     | '/ve-chung-toi'
+    | '/cong-dong/$id'
+    | '/cong-dong/dang-truyen'
     | '/truyen-thuyet/$slug'
+    | '/cong-dong/'
     | '/truyen-thuyet/'
     | '/truyen-thuyet/chu-de/$topic'
     | '/truyen-thuyet/quoc-gia/$country'
@@ -136,6 +182,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CongDongRoute: typeof CongDongRouteWithChildren
   DangHotRoute: typeof DangHotRoute
   KhamPhaNgauNhienRoute: typeof KhamPhaNgauNhienRoute
   TruyenThuyetRoute: typeof TruyenThuyetRouteWithChildren
@@ -149,6 +196,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cong-dong': {
+      id: '/cong-dong'
+      path: '/cong-dong'
+      fullPath: '/cong-dong'
+      preLoaderRoute: typeof CongDongRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dang-hot': {
@@ -178,6 +232,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/ve-chung-toi'
       preLoaderRoute: typeof VeChungToiRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/cong-dong/': {
+      id: '/cong-dong/'
+      path: '/'
+      fullPath: '/cong-dong/'
+      preLoaderRoute: typeof CongDongIndexRouteImport
+      parentRoute: typeof CongDongRoute
+    }
+    '/cong-dong/$id': {
+      id: '/cong-dong/$id'
+      path: '/$id'
+      fullPath: '/cong-dong/$id'
+      preLoaderRoute: typeof CongDongIdRouteImport
+      parentRoute: typeof CongDongRoute
+    }
+    '/cong-dong/dang-truyen': {
+      id: '/cong-dong/dang-truyen'
+      path: '/dang-truyen'
+      fullPath: '/cong-dong/dang-truyen'
+      preLoaderRoute: typeof CongDongDangTruyenRouteImport
+      parentRoute: typeof CongDongRoute
     }
     '/truyen-thuyet/': {
       id: '/truyen-thuyet/'
@@ -210,6 +285,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CongDongRouteChildren {
+  CongDongIdRoute: typeof CongDongIdRoute
+  CongDongDangTruyenRoute: typeof CongDongDangTruyenRoute
+  CongDongIndexRoute: typeof CongDongIndexRoute
+}
+
+const CongDongRouteChildren: CongDongRouteChildren = {
+  CongDongIdRoute: CongDongIdRoute,
+  CongDongDangTruyenRoute: CongDongDangTruyenRoute,
+  CongDongIndexRoute: CongDongIndexRoute,
+}
+
+const CongDongRouteWithChildren = CongDongRoute._addFileChildren(
+  CongDongRouteChildren,
+)
+
 interface TruyenThuyetRouteChildren {
   TruyenThuyetSlugRoute: typeof TruyenThuyetSlugRoute
   TruyenThuyetIndexRoute: typeof TruyenThuyetIndexRoute
@@ -230,6 +321,7 @@ const TruyenThuyetRouteWithChildren = TruyenThuyetRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CongDongRoute: CongDongRouteWithChildren,
   DangHotRoute: DangHotRoute,
   KhamPhaNgauNhienRoute: KhamPhaNgauNhienRoute,
   TruyenThuyetRoute: TruyenThuyetRouteWithChildren,
