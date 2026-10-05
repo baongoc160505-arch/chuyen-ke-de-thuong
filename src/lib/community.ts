@@ -16,9 +16,9 @@ export type CommunityPost = {
   title: string;
   body: string[];
   topic: string;
-  location?: string;
-  relatedSlug?: string;
-  image?: string;
+  location?: string | undefined;
+  relatedSlug?: string | undefined;
+  image?: string | undefined;
   reactions: Record<Reaction, number>;
   comments: Comment[];
   pending?: boolean;
