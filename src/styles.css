@@ -103,38 +103,25 @@
 }
 
 .dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
+  --background: oklch(0.25 0.03 45);
+  --foreground: oklch(0.93 0.035 83);
+  --card: oklch(0.31 0.035 45);
+  --card-foreground: oklch(0.93 0.035 83);
+  --popover: oklch(0.31 0.035 45);
+  --popover-foreground: oklch(0.93 0.035 83);
+  --primary: oklch(0.74 0.13 338);
+  --primary-foreground: oklch(0.22 0.03 43);
+  --secondary: oklch(0.38 0.05 18);
+  --secondary-foreground: oklch(0.93 0.035 83);
+  --muted: oklch(0.34 0.03 50);
+  --muted-foreground: oklch(0.78 0.04 75);
+  --accent: oklch(0.78 0.13 75);
+  --accent-foreground: oklch(0.22 0.03 43);
+  --destructive: oklch(0.66 0.17 28);
+  --destructive-foreground: oklch(0.96 0.02 85);
+  --border: oklch(0.8 0.04 75 / 35%);
+  --input: oklch(0.8 0.04 75 / 35%);
+  --ring: oklch(0.74 0.13 338);
 }
 
 @layer base {
@@ -287,3 +274,32 @@
   .story-header{grid-template-columns:1fr;gap:3rem}.article-layout{grid-template-columns:1fr;margin-top:4rem}.article-note{position:static;transform:none}.article-body{font-size:1.08rem}.search-result{flex-direction:column;gap:.2rem}
 }
 @media(max-width:480px){.topic-grid,.principles{grid-template-columns:1fr}.random-ghost{width:7rem;height:7rem}.box-note{right:-.5rem}.mystery-box{padding:1.25rem;min-height:20rem}}
+
+/* ---- Mega menu, entry cards, community, theme toggle ---- */
+.nav-dropdown { position: relative; }
+.mega-menu { position: absolute; left: 50%; top: calc(100% + .6rem); transform: translateX(-50%) rotate(-.6deg); z-index: 60; width: min(44rem, 92vw); display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem; padding: 1.5rem; background: var(--card); color: var(--card-foreground); border: 2px solid var(--foreground); border-radius: .5rem; box-shadow: 6px 6px 0 color-mix(in oklab, var(--foreground) 25%, transparent); }
+.mega-title { font-family: "Patrick Hand", cursive; font-size: 1.4rem; color: var(--primary); }
+.mega-list { margin-top: .6rem; display: grid; grid-template-columns: 1fr 1fr; gap: .2rem .8rem; font-weight: 600; font-size: .92rem; }
+.mega-list a { padding: .2rem .3rem; border-radius: .3rem; }
+.mega-list a:hover { background: var(--secondary); }
+.mega-ghost { width: 5rem; height: 5rem; align-self: end; }
+.mobile-sub { display: flex; flex-wrap: wrap; gap: .4rem; padding: .3rem 0 .6rem 2rem; font-size: .9rem; }
+.mobile-sub a { padding: .2rem .6rem !important; border: 1px dashed var(--border); border-radius: 99px; }
+.entry-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; text-align: left; padding: 2rem; background: var(--card); border: 2px solid var(--foreground); border-radius: .5rem; box-shadow: 5px 5px 0 color-mix(in oklab, var(--foreground) 22%, transparent); transition: transform .2s; cursor: pointer; }
+.entry-card:hover, .entry-card-open { transform: rotate(0) translateY(-4px); }
+.entry-card-alt { background: var(--secondary); }
+.entry-card-open { outline: 3px dashed var(--primary); outline-offset: 6px; }
+.entry-icon { width: 2.4rem; height: 2.4rem; color: var(--primary); }
+.entry-panel { margin-top: 2rem; padding: 1.5rem; background: var(--card); border: 2px dashed var(--border); border-radius: .5rem; animation: reveal .35s ease; }
+.community-card { position: relative; padding: 1.75rem; background: var(--card); border: 2px solid var(--foreground); border-radius: .5rem; box-shadow: 5px 5px 0 color-mix(in oklab, var(--foreground) 20%, transparent); }
+.reaction-chip { display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .7rem; border: 1.5px solid var(--border); border-radius: 99px; background: var(--background); font-weight: 700; transition: transform .15s; }
+.reaction-chip:hover { transform: translateY(-2px) rotate(-2deg); border-color: var(--primary); }
+.comment-item { padding: 1rem; background: var(--card); border: 1.5px dashed var(--border); border-radius: .5rem; }
+.submit-paper { padding: 1.75rem; background: var(--card); border: 2px solid var(--foreground); border-radius: .5rem; display: grid; gap: 1rem; }
+.submit-paper label { display: flex; flex-direction: column; gap: .35rem; font-weight: 700; }
+.submit-paper input, .submit-paper textarea, .submit-paper select { padding: .6rem .8rem; border: 2px solid var(--border); border-radius: .4rem; background: var(--background); color: var(--foreground); font-weight: 400; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; height: 2.5rem; min-width: 2.5rem; padding: 0 .6rem; border: 2px solid var(--foreground); border-radius: .4rem; background: var(--card); color: var(--foreground); box-shadow: 2px 2px 0 var(--foreground); }
+.theme-toggle:active { transform: translate(2px,2px); box-shadow: none; }
+.theme-toggle svg { width: 1.1rem; height: 1.1rem; }
+.dark .theme-toggle svg { color: var(--accent); }
+@media (max-width: 767px) { .mega-menu { display: none; } }

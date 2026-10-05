@@ -7,3 +7,4 @@
 - [x] Hoàn thiện Về chúng tôi
 - [x] Thêm nội dung tiếng Việt và thông tin chia sẻ từng trang
 - [x] Kiểm tra desktop, mobile và các tương tác chính
+- [x] Kho lời đồn theo quốc gia/chủ đề, trang Cộng đồng, chế độ tắt đèn
